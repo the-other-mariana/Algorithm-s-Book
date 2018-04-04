@@ -121,6 +121,7 @@ Dedicated to my dear wife Junue
 \end{chapquote}
 
 \begin{chapquote}{Juan Antonio Ruiz Leal}
+Dedicated to
 \end{chapquote}
 \end{dedication}
 
@@ -506,11 +507,11 @@ Bit-wise operations are always faster, since they are executed at bit level dire
 ``This is a quote and I don't know who said this.''
 \end{chapquote}
 
-\index{sorting} In practice is common to face with the need to sort the data which we are working with to solve a specific problem. Sometimes is necessary and other times it helps to improve the execution time of the program, in any case it is a very important tool in the programming area.\\
+\index{sorting} In practice is common to face with the need to sort the data which we are working with to solve a specific problem. Sometimes is necessary and other times it helps to improve the execution time of the program, in any case we are talking about a very important tool in the programming area.\\
 
-In this chapter we will cover some of the most popular sorting algorithms. Depending on the problem there are algorithms that fit better, some of them are faster in execution time but are more difficult to implement, or sometimes they need a great amount of memory. On the other hand, there are algorithms that perform poorly in execution time, but they are very easy to implement. That's why is important to identify which algorithm is the best for the problem that wants to be solved.\\
+In this chapter we will cover some of the most popular sorting algorithms. Depending on the problem, there are algorithms that fit better, some of them are faster in execution time but are more difficult to implement, or sometimes they need a great amount of memory. On the other hand, there are algorithms that perform poorly in execution time, but they are very easy to implement. That's why is important to identify which algorithm is the best for the problem that wants to be solved.\\
 
-Because this book is focused in algorithms for programming contests, and during a contest is important the time it take us to solve a problem. For that reason, simple algorithms like \textit{Bubble Sort} and \textit {Selection Sort} don't need to be discarded, they can be implemented very fast, and if the number of elements to sort is small, they will work just fine.
+Because this book is focused in algorithms for programming contests, and during a contest is important the time it take us to solve a problem, simple algorithms like \textit{Bubble Sort} and \textit {Selection Sort} don't need to be discarded, they can be implemented very fast, and if the number of elements to sort is small, they will work just fine.
 
 \section{Bubble Sort}
 
@@ -571,7 +572,7 @@ Resulting the following array:
 
 In \ref{tab:bubble_sort} can be seen that greater values move to the end of the array, meanwhile the smaller ones move to the start of the array.\\
 
-In order to sort the array, the process described above must be repeated at least $n$ times. This to ensure that all elements end in the correct place. The worst case scenario is when the array is initially in decreasing order, because in each iterations the smallest element moves only one position.\\
+In order to sort the array, the process described above must be repeated at least $n$ times. This to ensure that all elements end in the correct position. The worst case scenario is when the array is initially in decreasing order, because in each iteration the smallest element moves only one position.\\
 
 Program \ref{lst:bubble} read a number $n$ $(1 \leq n \leq 100)$, indicating the number of elements in the array $X$. The next $n$ numbers represents the elements of $X$. The program print the array $X$ with its elements sorted in increasing order.\\
 
@@ -631,8 +632,7 @@ void Bubble_Sort()
 
 \section{Selection Sort}
 
-Given an array of $n$ elements, this algorithm \index{selection sort} find the smallest element in an array and place it in the first position, then find the next smallest and place it in the second position, and so on, until all elements are sorted.
-In the implementation in order to place the smallest $i$ element in the correct spot, we need to swap it with the element located in the $i$ position before the sorting.  
+Given an array of $n$ elements, this algorithm \index{selection sort} find the smallest element in an array and place it in the first position, then finds the smallest number from the remaining elements and place it in the second position, and so on, until all elements are sorted.\\
 
 In iteration $i$, the cost of finding the smallest element is $n-i$, because at this point we are sure that the first $i-1$ elements are already sorted. Let's see an example. Consider the following array.
 
@@ -674,7 +674,7 @@ Iteration 9: & \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{2} & \t
 \label{tab:selection_sort}
 \end{table}
 
-In \ref{tab:selection_sort} the numbers in red are numbers that are already in the correct position, and the numbers in bold are the ones that need to be swapped.\\
+In \ref{tab:selection_sort} the numbers in red are numbers that are already in correct positions, and the numbers in bold are the ones that need to be swapped.\\
 
 In the first element we need to iterate trough all $n$ elements, for the second one we need to iterate trough $n-1$ elements, and so on. So the number of iterations is given by $n + (n-1) + (n-2) + \cdots + 1 = \frac{n}{2}(n+1)$.\\ 
 
@@ -737,7 +737,7 @@ void Selection_Sort()
 
 \section{Insertion Sort}
 
-To explain this method \index{insertion sort} imagine we have a list of $i$ elements sorted and we want to add a new element $i+1$, to keep the list sorted we need to place the new list member in the right spot, each iteration from $i=1$ to $i=n-1$ we add a new member $i+1$ to the current sorted array of $i$ elements. To do that, all the elements greater than the element we want to insert must be shifted to the right in order to make space to the new element. Consider the following array:\\
+To explain this method \index{insertion sort} imagine we have an array of $i$ elements sorted and we want to add a new element. To keep the array sorted we need to place the new element in the correct position. On each iteration from $i=1$ to $i=n-1$ we add a new member to the current sorted array of $i$ elements. To do that, all the elements greater than the new element must be shifted to the right in order to make space to the new element. Consider the following array:\\
 
 \begin{table}[ht]
 \centering % used for centering table
@@ -759,7 +759,7 @@ To add a new element with a value of 5, we must shift to the right the elements 
 \end{tabular}
 \end{table}
 
-In the worst case the elements given in descending order, making in each iteration to shift all the elements in the array. The program in \ref{lst:insertion_sort} reads an integer $n$ $(1 \leq n \leq 100)$, indicating the number of elements in the array. Next $n$ numbers represent the elements in the array. The program uses \textit{Insertion Sort} to print the given array in ascending order.\\ 
+In the worst case the elements are given in descending order, making in each iteration to shift all the elements in the array. The program in \ref{lst:insertion_sort} reads an integer $n$ $(1 \leq n \leq 100)$, indicating the number of elements in the array. Next $n$ numbers represent the elements in the array. The program uses \textit{Insertion Sort} to print the given array in ascending order.\\ 
 
 \noindent 
 \textbf{Time Complexity:} $O(n^2)$ \\
@@ -805,13 +805,13 @@ int main()
 
 \section{Counting Sort}
 
-This algorithm \index{counting sort} is very useful when we are handling a big amount of data, but is recommended to use it only when the data can be expressed as positive integer numbers in a small interval. The main idea is to count occurrences in terms of the numerical value, for example, consider the following group of integers in the interval $[0, 9]$:
+This algorithm \index{counting sort} is very useful when we are handling a big amount of data, but is recommended to use it only when the data can be expressed as non-negative integer numbers in a small interval. The main idea is to count occurrences in terms of the numerical value, for example, consider the following group of integers in the interval $[0, 9]$:
 
 \begin{center}
 $0,0,1,3,5,3,2,1,0,1,3,7,8,2,1,3,5,6,5,3$
 \end{center}
 
-For this case we have three 0’s, four 1’s, two 2’s, five 3’s, zero 4’s, three 5’s, one 6, one 7, one 8 and zero 9’s. Then, we only need to store the occurrences in a vector $C$ of size equal to the biggest element in the data, where $c_k$ represents the number of occurrences of element $k$. The vector $C$ for this example looks as follows:
+For this case we have three 0’s, four 1’s, two 2’s, five 3’s, zero 4’s, three 5’s, one 6, one 7, one 8 and zero 9’s. Then, we only need to store the occurrences in a vector $C$ of size equal to the biggest element in the data, where $C_k$ represents the number of occurrences of element $k$. The vector $C$ for this example looks as follows:
 
 \begin{table}[ht]
 \centering % used for centering table
@@ -830,9 +830,7 @@ $C=$ & 3 & 4 & 2 & 5 & 0 & 3 & 1 & 1 & 1 & 0 \\
 
 The program in \ref{lst:counting_sort} receives a number $n$, indicating the amount of elements to be sorted. $n$ numbers follow, each one in the interval $[0,9]$. The output is the numbers from the input sorted in ascending order.\\
 
-\noindent \textbf{Time Complexity:} $O(mk)$\\
-\indent m: Size of the interval.\\
-\indent k: The number of occurrences of the most frequent number.\\
+\noindent \textbf{Time Complexity:} $O(n)$\\
 \textbf{Input:}\\
 \indent n: Number of elements in the array.\\
 \indent num: Elements to be sorted.\\
@@ -900,7 +898,7 @@ We consider an array $x_{0}$, $x_{1}$, $x_{2}$, ... , $x_{n-1}$.   If we take th
 
 The worst case scenario is when all elements are sorted in non-ascending order, because for all the elements will be located in the right side of the pivot in each iteration, for the first pivot there will be $n-1$ elements at its right, for the next pivot there will be $n-2$, and so on, in order to avoid this, many algorithms run a random sort algorithm before execute quicksort reaching $O(nlogn)$ most of the times.\\
 
-The code in \ref{lst:quick_sort} implements \textit{Quick Sort} to sort an array $X$ of $n$ elements $(1 \leq n < 20)$. The input consists of $n$, and the $n$ numbers that form $X$. The output is $X$ with its elements sorted in ascending order.\\
+The code in \ref{lst:quick_sort} implements \textit{Quick Sort} to sort an array $X$ of $n$ elements $(1 \leq n < 20)$. The input consists of number $n$, and the $n$ numbers that form $X$. The output is $X$ with its elements sorted in ascending order.\\
 
 \noindent \textbf{Time Complexity:} $O(n^2)$, \\
 It's important to say that there are many inputs where the time complexity of this algorithm is $O(nlogn)$, and that's why is widely used.\\
@@ -993,14 +991,14 @@ void Swap(int i, int j)
 Suppose we want to sort the elements of a vector X in non-decreasing order from positions $a$ to $b$. This algorithm \index{merge sort} consists of four steps:
 
 \begin{enumerate}
-\item Divide the set in two parts by finding the middle value $X_m$, where $m = (a+ b)/2$.
+\item Divide the vector in two parts by finding the middle value $X_m$, where $m = (a+ b)/2$.
 \item Sort the elements in the left side.
 \item Sort the elements in the right side.
 \item Combine the elements in the left side with the elements in the right side in such a way
-that the resulting set is sorted.
+that the resulting vector is sorted.
 \end{enumerate}
 
-Step 4 is the most important. Figure \ref{fig:merge_process} shows the merge process of array $A$ and array $B$ into an array $C$, where $A$ and $B$ are sorted in non-decreasing order. Basically the idea of the merging process consists on placing an iterator $i$ (red) at the beginning of array $A$, and an iterator $j$ (blue) at the beginning of array $B$. If $A_i < B_j$ the element $A_i$ is inserted at the end of array $C$ and $i$ is moved to the next position. Otherwise element $B_j$ is inserted at the end of $C$ and $j$ is moved to the next position. The process continues until all the elements of $A$ and $B$ are inserted in $C$.  
+Step 4 is the most important. Figure \ref{fig:merge_process} shows the merge process of array $A$ and array $B$ into an array $C$, where $A$ and $B$ are sorted in non-decreasing order. Basically the idea of the merging process consists on placing an iterator $i$ (red) at the beginning of array $A$, and an iterator $j$ (blue) at the beginning of array $B$. If $A_i < B_j$ the element $A_i$ is inserted at the end of array $C$ and $i$ is moved to the next position. Otherwise if $A_i \geq B_j$, element $B_j$ is inserted at the end of $C$ and $j$ is moved to the next position. The process continues until all the elements of either $A$ or $B$ are inserted into $C$.  
 
 \begin{figure}[H]
     \centering
@@ -1183,7 +1181,7 @@ The \textit{Heap Sort} \index{heap sort} algorithm was invented by Joseph Willia
 	\label{fig:heapsort1}
 \end{figure}
 
-Let's explain how to implement a binary tree in an array. Suppose we have a parent node in the position $i$ then the left child would be in the position $2i+1$ and the right child in the position $2i+2$. For instance the root would be at index 0, its left child at index 1 and its right child at index 2, now the child of the node located at index 1 would be at index 3 and the right child at index 4, for the node placed at index 2 the left node would be at index 5 and right node at index 6, by doing this process we obtain the entire binary tree.\\
+Let's explain how to implement a binary tree in an array. Suppose we have a parent node in the position $i$ then the left child would be in the position $2i+1$ and the right child in the position $2i+2$. For instance the root would be at index 0, its left child at index 1 and its right child at index 2, now the child of the node located at index 1 would be at index 3 and the right child at index 4, for the node placed at index 2 the left child would be at index 5 and the right child at index 6, by doing this process we obtain the entire binary tree.\\
 \newline
 Consider the following sequence of numbers:
 
@@ -1227,7 +1225,7 @@ $X=$ & 9 & 8 & 7 & 6 & 5 & 0 & 4 & 2 & 1 & 3 \\
 \label{table:heap_array}
 \end{table}
 
-The next step is to swap the first element of $X$ (root node) with the last element. Then remove the last element from the heap because it is already in the right position of the array, and move the root element to the correct position by swapping elements, making the tree to be a heap again. Continue doing this until all elements in the heap have been removed. Figure \ref{fig:heapsort3} shows the different iterations of the \textit{Heap Sort}.
+The next step is to swap the first element of $X$ (root node) with the last element. Then remove the last element from the heap because it is already in the right position of the array, and move the root element to the correct position using swapping operations. This will convert the tree into a heap again. Continue doing this until all elements in the heap have been removed. Figure \ref{fig:heapsort3} shows the different iterations of the \textit{Heap Sort}.
 
 \begin{figure}[H]	
 	\centering
@@ -1356,10 +1354,11 @@ void Swap(int a, int b)
 \end{lstlisting}
 
 \section{Sorting with the algorithm library}
-Now that we know many algorithms to sort, we will see how to make life easier when we have to sort a set of comparable elements.
-Most programming languages have a library that help us sort. In C ++ there is a library called algorithm \index{algorithm library} that contains a method to sort that guarantees a complexity time of $O(nlogn)$.
-The interesting thing here is that the algorithm library allows us to customize our sorting method.\\
-In order to use the algorithm library we only have to add it and use sort method.Let's see some code examples. Take a look of the comments inside the code.\\
+Now that we know some of the most popular algorithms to sort, we will see how to make our life easier when we have to sort a set of comparable elements.\\
+
+Most programming languages have a library that help us sort. In \texttt{C++} there is a library called \texttt{algorithm} \index{algorithm library} that contains a method to sort that guarantees a complexity time of $O(nlogn)$. The interesting thing here is that this library allows us to customize our own sorting rules.\\
+
+In order to use the algorithm library we only have to add it and use the \texttt{sort} method. Let's see some code examples. Take a look to the comments inside the code.
 
 \begin{lstlisting}[caption={Simplest sort function}, label={lst:sortFunction_2}, numbers=left]
 //This example shows the simplest form to use sort function
@@ -1390,7 +1389,10 @@ int main()
 }
 \end{lstlisting}
 \subsection{Overloading operator <}
-So far we have only ordered numbers in a non- decreasing way and based on one parameter, because it is the natural manner, but what if we want to sort in a non-increasing way or taking two parameters into account, to do that we can seize the sort function overloading the operator <. Let's review how to implement it with the following two examples. 
+So far we have only ordered numbers in a non-decreasing way and based on one parameter, because it is the natural manner, but what if we want to sort in a non-increasing way or taking two parameters into account, to do that we can modify the behavior of the \texttt{sort} function by overloading the operator \texttt{<}. Let's review how to implement it with the following two examples.\\
+
+The first example in \ref{lst:sortFunction_1} sort an array in non-increasing order by overloading the \texttt{<} operator.
+
 \begin{lstlisting}[caption={Sorting in a non-increasing way}, label={lst:sortFunction_1}, numbers=left]
 //This example shows how to sort an array in a non-increasing way
 #include <stdio.h>
@@ -1432,9 +1434,11 @@ int main()
     print(arr,N);
     return 0;
 }
-
 \end{lstlisting}
-\begin{lstlisting}[caption={Sorting pairs in non-increasing form}, label={lst:sortFunction_1}, numbers=left]
+
+In the second example in \ref{lst:sortFunction_2} we sort an array of points, first in increasing order according to their x-coordinate, and if two points have the same x-coordinate, then they are sorted in increasing order by their y-coordinate.
+
+\begin{lstlisting}[caption={Sorting pairs in non-increasing form}, label={lst:sortFunction_2}, numbers=left]
 //This example shows how to sort a list of pairs in non-decreasing way
 #include <stdio.h>
 //We include algorithm library
@@ -1538,7 +1542,8 @@ int main()
 \end{lstlisting}
 \section{Problems}
 
-In this section we present special cases of sorting problems that can be solved using techniques different form the ones mentioned previously in this chapter. This with the objective that the reader be aware that there can be other approaches when facing problems that involves sorting. Solutions that sometimes are easier to implement and have better performance. 
+In this section we present special cases of sorting problems that can be solved using techniques different form the ones mentioned previously in this chapter. This with the objective that the reader be aware that there can be other approaches when facing problems that involves sorting. Solutions that sometimes are easier to implement and have better performance. Said that, we encourage the reader to try to solve the problems first, before reading the solution. 
+
 \subsection{Marching in the school}
 
 $N$ students are standing in one line, some of them are facing left, and other facing right. All of them must face to the same direction, so when a student see the face of another student understands that he has made a mistake and turns around. The process continues until all the students don't see any other student's face. Write a program that calculates the number of times when a pair of students turned around. If the process is infinite, print "NO".
@@ -1620,6 +1625,60 @@ int main()
 
 Given an  array $X$ of $n$ elements write a program that determines the number of swaps needed to sort the array $X$ using \textit{Bubble Sort}.
 
+\subsection*{Input}
+
+The first line of the input contains $n$ $(1 \leq n \leq 100)$, indicating the number of elements in the array $X$. The next $n$ numbers represent the elements of $X$, all of them 32-bit integers.
+
+\subsection*{Output}
+
+The number of swaps made by the \textit{Bubble Sort} method.
+
+\subsection*{Solution}
+
+One option is to implement the \textit{Bubble Sort} algorithm and count the number of swaps that occur. Another option is to count the number of misplaced elements in the array. The later option consists on counting for each element in the array, the number of elements at its right that are smaller. Consider the following array
+
+$$
+X = [3,7,2,6,1,4,3,5]
+$$
+
+If we look at the elements at the right of the first element (3), we notice that there are two elements that are smaller (1 and 2). So we increase our counter by two. We do the same for the second element (7), this time we have six elements smaller than it, so we increase our result by six. If we follow the same process for all elements we obtain that our answer is:
+
+$$
+2 + 6 + 1 + 4 + 0 + 1 + 0 + 0 = 14
+$$
+
+\begin{lstlisting}[caption={How Many Swaps}, label={lst:how_many_swaps}, numbers=left]
+#include <cstdio>
+#define N 100
+
+using namespace std;
+
+int main()
+{
+    int i, j, n, ans;
+    int X[N];
+    
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+        scanf("%d", &X[i]);
+		
+    ans = 0;
+    for(i=0; i<n; i++)
+    {
+        for(j=i+1; j<n; j++)
+        {
+            if(X[i] > X[j])
+            ans++;
+        }
+    }
+	
+    printf("%d\n", ans);
+    
+    return 0;
+}
+\end{lstlisting}
+
+
 \section{Chapter Notes}
 
 Fastest sorting methods run in $O(n \log n)$ time, but they are sometimes a little bit harder to implement. On the other hand, algorithms that run in $O(n^2)$ time tend to be easier to implement, but their performance is poor when dealing with a large amount of data. When the number of elements to sort is greater than $1000$, we recommend not to use a $O(n^2)$ algorithm. In fact is a good practice to use the \texttt{sort} function of the \texttt{algorithm}  \index{algorithm library} library whenever is possible.\\
@@ -1651,28 +1710,35 @@ A brief explanation of sorting algorithms can be found in topcoder tutorials \ci
 "This is a quote and I don't know who said this."
 \end{chapquote}
 
+Data structures is a fundamental part of computer programming, since they are used to store our data. An array, a matrix, or any multi-dimensional array are examples of a data structure.\\
+
+During this chapter we will review some of the most used data structures, we will analyze their properties and use cases, because depending of the circumstances some are more apt than others.\\
+
+Lets analyze a simple array and possible uses cases. Suppose we have an array $X$ of $n$ elements, $X_0, X_1, \ldots, X_{n-1}$. Now, what if we want to extract the $10^{th}$ element of the array? Well, that is easy, we just go and retrieve the element $X_{10}$. That simple operation of retrieving certain element runs in $O(1)$ time. Now, suppose we want to find certain element in $X$, well, in that case we must go trough the whole array and check element by element until we find the one we are looking for. That task run in $O(n)$ time. Finally consider the case of removing one element from $X$. That is not a simple task, since we must remove the desired element and shift all the elements at its right. That task has a $O(n)$ running time.\\
+
+The time complexity for insertion, extraction, finding, and deletion operations varies depending on the data structure used. Some are fast to extract information like vector or arrays, other are faster to insert or remove data like lists, other like trees are more suitable to find elements. This will be the purpose of this chapter, to analyze the pros and cons of each data structure and how they work.
+
 \newpage
 \section{Linear Data Structures}
 
-In this section we will review the basic data structures. Let's start saying what is a data structure. A data structure is basically one tool for storage data in memory with a specific purpose when you are coding, besides inherently associated with the data structure are the operations over it. This operations are normally insert, delete and find one element or a set of elements inside it. 
-\newline For the code in this section we are going to separate the Memory Complexity in general and the Time Complexity for each of operations over the data structure. 
+In this section we will review the basic data structures. Let's start saying what is a data structure. A data structure is basically one tool for storage data in memory with a specific purpose when you are coding, besides inherently associated with the data structure are the operations over it. This operations are normally insert, delete and find one element or a set of elements inside it.\\ 
+
+For the code in this section we are going to separate the Memory Complexity in general and the Time Complexity for each of operations over the data structure. 
 
 \subsection{Stack}
-This data structure is used under principle \textit{last in first out}, that means the last element inserted will be the first element removed. The real life case to exemplify how a stack works is, how to dry a stack of washed dishes?, we were stacking the dishes when we were washing them, so the last plat washed will be the first to dry and so on until we have no plates anymore. Stacks are very useful in Computer Science in general, they are the basis of the recursion and they are utilized in Depth First Search indirectly when the recursion is applied. In the programming contests they are normally used when you are solving problems related with evaluate mathematical expressions and parenthesis balance.
+This data structure is used under principle \textit{last in first out}, that means the last element inserted will be the first element removed. A real life case to exemplify how a stack works is how to dry a stack of washed dishe. We stack the dishes as we wash them, so the last plate washed will be the first to be dried, and so on until we have no plates anymore. Stacks are very useful in Computer Science in general, they are the basis of the recursion and they are utilized in Depth First Search indirectly when the recursion is applied, as we will se in chapter \ref{chap:graphs}. In programming contests is common to use stacks when you are solving problems related with evaluate mathematical expressions and parenthesis balance.
 
 \noindent
 \newline
 \textbf{Memory Complexity:} $O(n)$ \\
-\textbf{\textit{Insert}}\\
-\textbf{Time Complexity:} $O(1)$ \\
-\textbf{\textit{Delete}}\\
-\textbf{Time Search:} $O(1)$ \\
-\textbf{\textit{Find}}\\
-\textbf{Time Complexity:} $O(n)$ \\
-\newline
+\textbf{\textit{Insert} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Delete} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Find} Time Complexity:} $O(n)$\\ 
+
+\noindent
 \textbf{Input:}\\
 \indent List of numbers(it can be any abstract data type) that will be stored in the stack.\\
-\textbf{Output}:\\
+\noindent \textbf{Output}:\\
 \indent Depends of the operation, the current state of the stack. The operations performed will be insert, known as push, and delete, known as pop.
 \begin{lstlisting}
 //Stack simulated with array
@@ -1727,20 +1793,17 @@ int main()
 
 
 \end{lstlisting}
-A stack also can be simulated with a linked list, but the concept is the same. In the STL section we are going to see how to use a stack of this library.
+A stack also can be simulated with a linked list, but the concept is the same. In section \ref{sec:stl} we are going to see how to use a stack from the \textit{Standard Template Library (STL)}.
 \subsection{Queue}
-This data structure is used under principle \textit{first in first out}, that means the first element inserted will be the first element removed. The real life case to illustrate how a queue works is the line formed in a market to pay, the first person to arrive is the first person to be served.  Queue is as common as stack in Computer Science. Inside a contest is required to implement Breadth First Search and is useful to solve problems where they ask us state of certain list and it's modified over the time.
+This data structure is used under principle of \textit{first in first out}, that means that the first element inserted will be the first element removed. A real life case to illustrate how a queue works is the line formed in a market to pay, the first person to arrive is the first person to be served.  Queue is as common as stack in Computer Science. Inside a contest is required to implement the \textit{Breadth First Search}, as we will see in chapter \ref{chap:graphs}, and is useful to solve problems where they ask us the state of certain list that is modified over time.
 
 \noindent
 \newline
 \textbf{Memory Complexity:} $O(n)$ \\
-\textbf{\textit{Insert}}\\
-\textbf{Time Complexity:} $O(1)$ \\
-\textbf{\textit{Delete}}\\
-\textbf{Time Complexity:} $O(1)$ \\
-\textbf{\textit{Search}}\\
-\textbf{Time Complexity:} $O(n)$ \\
-\newpage
+\textbf{\textit{Insert} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Delete} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Search} Time Complexity:} $O(n)$\\ 
+
 \noindent
 \textbf{Input:}\\
 \indent List of numbers(it can be any abstract data type) that will be stored in the queue.\\
@@ -1797,28 +1860,29 @@ int main()
     return 0;
 }
 \end{lstlisting}
-As a stack, a queue also can be simulated with a linked list and there is no any change conceptually. The STL library has a queue implemented too, and we will see it.
+As a stack, a queue also can be simulated with a linked list and there is no any change conceptually. The STL library has a queue implemented too, and we will see it in section \ref{sec:stl}.
+
 \subsection{Linked List}
-It is not common to use this data structure inside a programming contest, but it's very useful in Computer Science. A linked list can be thought as an array, but the difference is that allow us to insert and delete in constant time increasing  or decreasing the size of the structure. 
-There are various types of linked list, some of them are simple linked list, double linked list, circular linked list, double circular linked list, among others.
-\newline
-A linked list is composed by nodes, these nodes stores simple data, like the arrays, but they also save the memory address of some node related to this node. The relationship between nodes can be next node, previous node, child node, parent node, sibling node or as the programmer wants to think it in his/her mind.
-In a linked list is necessary to know where is the beginning and the end of the list, known as head and tail of the list. Normally the tail node points to  NULL.
+It is not common to use this data structure inside a programming contest, but it's very useful in Computer Science. A linked list can be thought as an array, but the difference is that it allow us to insert and delete in constant time increasing  or decreasing the size of the structure.\\
+
+There are various types of linked list, some of them are: simple linked list, double linked list, circular linked list, double circular linked list, among others.\\
+
+A linked list is composed by nodes, these nodes store  data, like the arrays, but they also save the memory address of some node related to this node. The relationship between nodes can be next node, previous node, child node, parent node, sibling node or what the programmer wants to think in his/her mind.\\
+
+In a linked list is necessary to know where is the beginning and the end of the list, known as head and tail of the list. Normally the tail node points to \texttt{NULL}.\\
+
 In simple linked list, doubly linked list, circular linked list and doubly circular linked list the operation has the same time and memory complexity.
 
 \noindent
 \newline
 \textbf{Memory Complexity:} $O(n)$ \\
-\textbf{\textit{Insert}}\\
-\textbf{Time Complexity:} $O(1)$ \\
-\textbf{\textit{Delete}}\\
-\textbf{Time Complexity:} $O(1)$ \\
-\textbf{\textit{Search}}\\
-\textbf{Time Complexity:} $O(n)$ \\
+\textbf{\textit{Insert} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Delete} Time Complexity:} $O(1)$ \\
+\textbf{\textit{Search} Time Complexity:} $O(n)$
 
 \subsubsection{Simple linked List}
-A simple linked list is a linked list where a node only stores the information about the next node address besides, from keep the main information of the node, the last node points to NULL.
-Let's see the implementation of simple linked list.
+A \textit{simple linked list} is a linked list where a node stores only the information about the next node address, and the main information of the node. The last node points to \texttt{NULL}. Let's see the implementation of simple linked list.
+
 \noindent
 \newline
 \textbf{Input:}\\
@@ -1836,8 +1900,8 @@ int main()
 }
 \end{lstlisting}
 \subsubsection{Doubly linked List}
-A doubly linked list is a linked list where a node stores memory address  about the next node and the previous one, the last node in its next field points to NULL and the first node in its previous field points to NULL as well.
-Let's review the implementation of doubly linked list.
+A doubly linked list is a linked list where a node stores the memory address  about the next node and the previous one. The link to the next node of the last node  points to \texttt{NULL}, and the link to the previous node of the first node points to \texttt{NULL} as well. Let's review the implementation of a doubly linked list.
+
 \noindent
 \newline
 \textbf{Input:}\\
@@ -1855,8 +1919,8 @@ int main()
 }
 \end{lstlisting}
 \subsubsection{Circular linked List}
-A circular linked list is almost exactly the same as simple linked list, but there is a light difference, it's that instead of the last node points to NULL, this points to the first one, and hence the name.
-Let's take a look at the implementation of circular linked list.
+A circular linked list is almost exactly the same as a simple linked list, but there is a light difference, and is that instead of having the last node pointing to \texttt{NULL}, it points to the first node, and hence the name. Let's take a look at the implementation of circular linked list.
+
 \noindent
 \newline
 \textbf{Input:}\\
@@ -1874,8 +1938,8 @@ int main()
 }
 \end{lstlisting}
 \subsubsection{Doubly circular linked List}
-A doubly circular linked list is practically the same as doubly linked list, but there is a tiny  difference, last node in its next field points to the first one and conversely the first node in its previous field points to the last one. 
-Let's analyze the implementation of doubly circular linked list.
+A doubly circular linked list is practically the same as a doubly linked list, but with  a tiny  difference, the last node has a link to the first node, and conversely the first node has a link that points to the last one. Let's analyze the implementation of doubly circular linked list.
+
 \noindent
 \newline
 \textbf{Input:}\\
@@ -1962,7 +2026,7 @@ int main()
 
 
 \section{Standard Template Library (STL) C++}
-
+\label{sec:stl}
 STL is one of the most powerful thing C++ language has. Inside this library are implemented many algorithms and data structures that are very handy for the programming contests. Let's take a look at some of the most common data structures and their respective examples.
 \subsection{Unordered Set}
 This structure allows us to create an unordered set of unique elements, that means no matter the order just the unicity of the elements. Internally this structure is implemented as a hash table, which is a table that associates keys with values in constant time $O(1)$. It's important to say that this structure is available from the standard  c++11. Imagine we want to count the numbers of different words in some text. We are going to use an unordered set in order to solve the problem. As the set don't let us save repeated elements, it will be sufficient to read the word and store it into the the set and at the end the set will have saved only the different elements, so we can get the size of the set and this will be the answer. Let's look at the code.\\
@@ -3822,6 +3886,7 @@ Some online judges have their problems divided by category, bellow there are a c
 \end{tcolorbox}
 
 \chapter{Graphs}
+\label{chap:graphs}
 \begin{chapquote}{Author's name, \textit{Source of this quote}}
 ``This is a quote and I don't know who said this.''
 \end{chapquote}
