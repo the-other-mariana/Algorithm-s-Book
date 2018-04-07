@@ -1880,27 +1880,125 @@ In simple linked list, doubly linked list, circular linked list and doubly circu
 \textbf{\textit{Delete} Time Complexity:} $O(1)$ \\
 \textbf{\textit{Search} Time Complexity:} $O(n)$
 
-\subsubsection{Simple linked List}
-A \textit{simple linked list} is a linked list where a node stores only the information about the next node address, and the main information of the node. The last node points to \texttt{NULL}. Let's see the implementation of simple linked list.
-
+\subsubsection{Simple Linked List}
+\index{simple linked list}
+A \textit{simple linked list} is a linked list where a node stores only the information about the next node address, and the main information of the node. The last node points to \texttt{NULL}. The source code in \ref{lst:simple_linked_list} define the class \texttt{Node}, which contains an integer value to store the information associated to that node, and a pointer to the next node in the list. The node \texttt{head} points to the first node of the list, and the node \texttt{tail} points to the last node of the list. The \texttt{main} function add elements into the list and then remove them from the list.
+ 
 \noindent
 \newline
 \textbf{Input:}\\
 \indent List of numbers (it can be any data abstract type) that will be stored in the simple linked list.\\
 \textbf{Output}:\\
 \indent Depends of the operation, the current state of the simple linked list. The operations performed will be insert, delete and search.
-\begin{lstlisting}
-//Simple linked list implementation
-#include <iostream>
-#include <stdio.h>
+\begin{lstlisting}[caption={Simple Linked List}, label={lst:simple_linked_list}, numbers=left]
+#include <cstdio>
+
 using namespace std;
+
+class Node
+{
+    public:
+    
+    int val;
+    Node *next;
+    
+    Node(int val, Node *nextNode)
+    {
+        this->val = val;
+        this->next = nextNode;
+    }
+};
+
+Node *head = NULL;
+Node *tail = NULL;
+
+void pushBack(int);
+void popFront();
+void printList();
+
 int main()
 {
+    //Insert three elements in the list
+    pushBack(2);
+    pushBack(3);
+    pushBack(5);
+    printList();
+    
+    //Remove the first element
+    popFront();
+    printList();
+    
+    //Remove the other two elements
+    popFront();
+    popFront();
+    printList();
+    
     return 0;
 }
 \end{lstlisting}
-\subsubsection{Doubly linked List}
-A doubly linked list is a linked list where a node stores the memory address  about the next node and the previous one. The link to the next node of the last node  points to \texttt{NULL}, and the link to the previous node of the first node points to \texttt{NULL} as well. Let's review the implementation of a doubly linked list.
+
+The \texttt{pushBack} function add a node at the end of the list. The new node becomes the tail, and the \texttt{next} pointer of the node that was previously the tail is modified and points to the new node.  
+
+\begin{lstlisting}
+void pushBack(int val)
+{
+    Node *newNode = new Node(val,NULL);
+    
+    if(tail == NULL)
+        head = newNode;
+    else
+        tail->next = newNode;
+    
+    tail = newNode;
+}
+\end{lstlisting}
+
+The \texttt{popFront} function removes  the first element of the list, if there is any. The node associated to the \texttt{next} pointer of the head becomes the head, and the node that was previously the head is removed.
+
+\begin{lstlisting}
+void popFront()
+{
+    if(head != NULL)
+    {
+        Node *nextNode = head->next;
+        
+        delete(head);
+        
+        head = nextNode;
+        if(head == NULL)
+            tail = NULL;
+    }
+}
+\end{lstlisting}
+
+The function \texttt{printList} as its name says print the whole list by iterating trough all its elements printing them one by one. If the list is empty prints the message \textit{''-- empty list --''}.
+
+\begin{lstlisting}
+void printList()
+{
+    Node *curNode = head;
+    
+    if(curNode == NULL)
+    {
+        printf("-- empty list --\n");
+        return;
+    }
+    
+    while(curNode != NULL)
+    {
+        printf("%d", curNode->val);
+        curNode = curNode->next;
+        
+        if(curNode != NULL)
+            printf(" -> ");
+    }
+    
+    printf("\n");
+}
+\end{lstlisting}
+\subsubsection{Doubly Linked List}
+\index{doubly linked list}
+A doubly linked list is a linked list where a node stores the memory address  about the next node and the previous one. The link to the next node of the last node  points to \texttt{NULL}, and the link to the previous node of the first node points to \texttt{NULL} as well. The program in \ref{lst:doubly_linked_list} defines a class \texttt{Node} similar to the one used in the \textit{Simple Linked List}, but it adds a pointer to the previous node. The functions \texttt{pushBack} and \texttt{popFront} are similar to the ones in the \textit{Simple Linked List} implementation, but include some changes that modify the \texttt{next} and \texttt{prev} links of the nodes involved in the insertion or deletion process. 
 
 \noindent
 \newline
@@ -1908,60 +2006,181 @@ A doubly linked list is a linked list where a node stores the memory address  ab
 \indent List of numbers(it can be anything) that will be stored in the doubly linked list.\\
 \textbf{Output}:\\
 \indent Depends of the operation, the current state of the doubly linked list. The operations performed will be insert, delete and search.
-\begin{lstlisting}
-//Doubly linked list implementation
-#include <iostream>
-#include <stdio.h>
-using namespace std;
-int main()
-{
-    return 0;
-}
-\end{lstlisting}
-\subsubsection{Circular linked List}
-A circular linked list is almost exactly the same as a simple linked list, but there is a light difference, and is that instead of having the last node pointing to \texttt{NULL}, it points to the first node, and hence the name. Let's take a look at the implementation of circular linked list.
+\begin{lstlisting}[caption={Doubly Linked List}, label={lst:doubly_linked_list}, numbers=left]
+#include <cstdio>
 
-\noindent
-\newline
-\textbf{Input:}\\
-\indent List of numbers(it can be any abstract data type) that will be stored in the circular linked list.\\
-\textbf{Output}:\\
-\indent Depends of the operation, the current state of the circular linked list. The operations performed will be insert, delete and search.
-\begin{lstlisting}
-//Circular linked list implementation
-#include <iostream>
-#include <stdio.h>
 using namespace std;
-int main()
-{
-    return 0;
-}
-\end{lstlisting}
-\subsubsection{Doubly circular linked List}
-A doubly circular linked list is practically the same as a doubly linked list, but with  a tiny  difference, the last node has a link to the first node, and conversely the first node has a link that points to the last one. Let's analyze the implementation of doubly circular linked list.
 
-\noindent
-\newline
-\textbf{Input:}\\
-\indent List of numbers(it can be any abstract data type) that will be stored in the doubly circular linked list.\\
-\textbf{Output}:\\
-\indent Depends of the operation, the current state of the doubly circular linked list. The operations performed will be insert, delete and search.
-\begin{lstlisting}
-//Doubly circular Linked List implementation
-#include <iostream>
-#include <stdio.h>
-using namespace std;
+class Node
+{
+    public:
+    
+    int val;
+    Node *next;
+    Node *prev;
+    
+    Node(int val, Node *nextNode, Node *prevNode)
+    {
+        this->val = val;
+        this->next = nextNode;
+        this->prev = prevNode;
+    }
+};
+
+Node *head = NULL;
+Node *tail = NULL;
+
+void pushBack(int);
+void pushFront(int);
+void popFront();
+void popBack();
+void printList();
+
 int main()
 {
+    //Add two elements at the end of the list
+    pushBack(5);
+    pushBack(7);
+    printList();
+    
+    //Removes the last element
+    popBack();
+    printList();
+    
+    //Removes the last element and the list is empty
+    popBack();
+    printList();
+    
+    //Add five elements at the top of the list
+    pushFront(6);
+    pushFront(8);
+    pushFront(3);
+    pushFront(1);
+    pushFront(4);
+    printList();
+    
+    /Removes the last element and the two first elements
+    popBack();
+    popFront();
+    popFront();
+    printList();
+    
     return 0;
 }
 \end{lstlisting}
+
+Let be $p$ the current tail. When we add an element to the back of the list, the new node becomes the tail with its \texttt{prev} link pointing to $p$, and the \texttt{next} link of $p$ pointing to the new tail.
+
+\begin{lstlisting}
+void pushBack(int val)
+{
+    Node *newNode = new Node(val,NULL,NULL);
+    
+    if(tail == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        newNode->prev = tail;
+        tail->next = newNode;
+    }
+    
+    tail = newNode;
+}
+\end{lstlisting}
+
+The \texttt{pushFront} function inserts an element at the beginning of the list. The new node becomes the head with its \texttt{next} link pointing to the node that was previously the head.
+
+\begin{lstlisting}
+void pushFront(int val)
+{
+    Node *newNode = new Node(val,NULL,NULL);
+    
+    if(head == NULL)
+    {
+        tail = newNode;
+    }
+    else
+    {
+        newNode->next = head;
+        head->prev = newNode;
+    }
+    
+    head = newNode;
+}
+\end{lstlisting}
+
+The \texttt{popFront} function removes the first element of the list. The node associated to the \texttt{next} link of the head becomes the new head, and the previous head is removed from the list.
+
+\begin{lstlisting}
+void popFront()
+{
+    if(head != NULL)
+    {
+        Node *nextNode = head->next;
+        
+        if(nextNode != NULL)
+            nextNode->prev = NULL;
+        
+        delete(head);
+        
+        head = nextNode;
+        if(head == NULL)
+            tail = NULL;
+    }
+}
+\end{lstlisting}
+
+Similar to the \texttt{popFront} function, the \texttt{popBack} function removes the last element of the list. The tail is removed and node associated to its \texttt{prev} link becomes the new tail.
+
+\begin{lstlisting}
+void popBack()
+{
+    if(tail != NULL)
+    {
+        Node *prevNode = tail->prev;
+        
+        if(prevNode != NULL)
+            prevNode->next = NULL;
+        
+        delete(tail);
+        
+        tail = prevNode;
+        if(tail == NULL)
+            head = NULL;
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Circular Linked List}
+\index{circular linked list}
+
+A circular linked list is almost exactly the same as a simple linked list, but there is a light difference, and is that instead of having the last node pointing to \texttt{NULL}, it points to the first node, and hence the name. The code for the \textit{Circular Linked List} is almost the same that the one in \ref{lst:simple_linked_list}, with just one difference, every time that the list is modified, because of an insertion or a deletion, we have to make sure that the tail is linked to the head. Basically we must add the following statement.
+
+\begin{lstlisting}[frame=none]
+if(tail != NULL)
+    tail->next = head;
+\end{lstlisting}
+
+\subsubsection{Doubly circular Linked List}
+\index{doubly circular linked list}
+A doubly circular linked list is practically the same as a doubly linked list, but with  a tiny  difference, the last node has a link to the first node, and conversely the first node has a link that points to the last one. The implementation is very similar to the program \ref{lst:doubly_linked_list}, but again we must be careful when the list is modified by an insertion or a deletion by ensuring that the first and last element of the list are linked in both ways. We can do that by adding the following sentences:
+
+\begin{lstlisting}[frame=none]
+if(head != NULL)
+{
+    head->prev = tail;
+    tail->next = head;
+}
+\end{lstlisting}
+
 \section{Trees}
-So far we have reviewed linear data structures, but there is more, in this chapter we will discuss data structures tree-shaped. 
-Let's start defining a tree from graph theory perspective , a tree is a simple graph (graph without multiple edges) with no cycles. 
-But this definition is not too useful to imagine a tree as a data structure.  So it's better to think in a multilevel structure when we think in a tree to store information. 
-There are some terminology necessary to understand better a tree data structure. Let's see which is this terminology.
-\newline
+So far we have reviewed linear data structures, but there is more, in this section we will discuss tree-shaped data structures. Let's start by defining a tree from the graph theory perspective. A tree is a simple graph (graph without multiple edges) with no cycles. This definition may be not too useful to picture a tree as a data structure. Perhaps it is better to think about it as a multilevel structure to store information.\\
+
+Before continuing it is necessary to understand the following terminology:\\
+
+\noindent
 \textbf{Root: } Top node of the tree.
 \newline
 \textbf{Child: } Node pointed by other node in a previous level.
@@ -1978,50 +2197,122 @@ There are some terminology necessary to understand better a tree data structure.
 \newline
 \textbf{Path: }Sequence of nodes connected.
 \newline
-The trees are present in many things, one of the main applications is in the file systems, when we create a file or a folder somewhere internally we are creating a child from a specific node, which represents the folder. Other applications are related with keep elements ordered and apply queries over it, one application of this is an index in some SQL package. 
-\section{Binary indexed tree (BIT)}
-Suppose we have an array composed by numbers $a_1,a_2,...,a_n$ and we want to know what is the sum from the index $i$ to index $j$, $1 \leq i,j \leq n$ . The naive approach is go through the interval and make the sum, and actually if this query is only performed once the time cost is $O(n)$, but if we have more queries of this type, the complexity time tends to $O(n^2)$, this complexity can be reduced by saving the accumulate sums, let's see how, we use another array to store the accumulate from the index $1$ to the index $i$, this might be done in linear time, then to resolve the query sum\{$a_i, a_j$\} we just perform the difference between the accumulate of the index $j$ and the accumulate of the index $i-1$ and the result will be the wanted sum, this last operation is made in constant time. So far everything seems good enough, but the last algorithm is considering an static array, in other words, the array is never modified, but what if we want to update the array and make queries at the same time. Here is when BIT shows up, BIT allows us solve the problem of the sum of an interval when this is not static.
 
-BIT store the accumulates from index $1$ to index $i$, but binary way. 
-The idea behind BIT is represent the numbers in a binary form. 
-Before to proceed with the explanation, let's see a bitwise trick. The trick is to get the less significant bit of a number by using the fact that computer represent a negative number as two's complement.Let's take a look at the following image.
+Trees are present in different areas, one of the main applications is in the file systems, when we create a file or a folder somewhere internally we are creating a child from a specific node, which represents the folder. Other applications are related with keep elements ordered and apply queries over it, one example of this is an index in some \texttt{SQL} package.
+
+\subsection{Tree Traversal}
+
+\subsection{Binary Search Tree}
+
+\subsection{AVL Tree}
+
+\subsection{Segment Tree}
+
+\section{Binary Indexed Tree (BIT)}
+
+\index{BIT} 
+Suppose we have an array composed by numbers $a_0,a_2,...,a_{n-1}$ and we want to know what is the sum from the index $i$ to index $j$, $0 \leq i \leq j < n$ . The naive approach is go through the interval and sum element by element. If this query is performed once the time cost is $O(n)$, but if we have $m$ queries of this type, the complexity time tends to $O(mn)$. This complexity can be reduced by saving the accumulate sums using another array to store the accumulate from the index $0$ to the index $i$, this might be done in linear time, then to resolve the query sum\{$a_i, a_j$\}, we just calculate the difference between the accumulate of the index $j$ and the accumulate of the index $i-1$. This last operation is made in constant time $O(1)$. So far everything seems good enough, but the last algorithm is considering an static array, in other words, the array is never modified, but what if we want to update the array and make queries at the same time. Here is when BIT shows up, BIT allows us to solve the problem of the sum of an interval when this is not static.\\
+
+The idea behind BIT consists on storing the accumulates from index $0$ to index $i$ using a binary representation of the indexes. A BIT is also known as a Fenwick tree, since it was proposed by Peter Fenwick in 1994 \cite{fenwick}.\\
+
+Before to proceed with the explanation, let's see a bitwise trick. The trick consists on isolating the last non-zero bit of a number (keep the last non-zero bit and put 0's in the other bits) by using the fact that computer represent a negative number as two's complement. See image \ref{fig:bit1}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale = 0.6]{images/BIT_1.png}
-	\caption[Bitwise operation to get rightmost bit]{Bitwise operation to get less significant bit}
-	\label{fig:heapsort1}
+	\caption[Bitwise operation to get rightmost bit]{Bitwise operation to get the less significant bit}
+	\label{fig:bit1}
 \end{figure}
 
-Consider that we have an array of 1024 elements and suppose we want to update the position 10
+Be $C_i$ the accumulate sum from index $0$ to some index $i$, and be $T$ the array that represents the BIT. Is important to mention that indexes of $T$ starts from $1$ and not from $0$, meaning that $T$ is an array with indexes from $1$ to $n$. For example, suppose we want to obtain the value of $C_{10}$, using the array $T$ this is accomplished with the following sum:
 
-Its beauty lies in its simplicity.
+$$
+C_{10} = T_{1011} + T_{1010} + T_{1000}
+$$
 
-\begin{lstlisting}[caption={BIT}, label={lst:UnorderedSet_1}, numbers=left]
-#include <iostream>
+The first thing to do is add 1 to the given index, since the indexes in $T$ starts from $1$. Then we do a binary representation of that number, in this case 11, which is 1011, an then, using the bitwise trick explained before, we convert the last 1 from that number into a 0 to obtain the new index. We continue doing this until the index is zero.
+
+$$
+1011 \rightarrow 1010 \rightarrow 1000 \rightarrow 0000
+$$
+
+The code in \ref{lst:bit} shows a basic implementation of a BIT. It contains three functions. The function \texttt{updateBIT} add a value of $v$ to node $i+1$ and to all its ancestors. The function \texttt{queryBIT} receives an integer $i$ and returns the accumulate sum of all numbers in the original array from index $0$ to index $i$. And the function \texttt{createBIT}, which creates the BIT from the original array.\\
+
+The time complexity of the \texttt{queryBIT} and the \texttt{updateBIT} functions is $O(\log n)$ for both. On the other hand, the tume complexity of the \texttt{createBIT} is $O(n \log n)$, since we have to update the BIT for each element in the array.\\
+
+\noindent \textbf{Time Complexity:}\\
+\indent \textit{creation:} $O(n\log n)$\\
+\indent \textit{query:} $O(\log n)$\\
+\indent \textit{update:} $O(\log n)$\\
+\textbf{Input:}\\
+\indent N: The number of elements in the array.\\
+\indent X: Array with integer numbers.\\
+\textbf{Output}:\\
+\indent Queries using a BIT to obtain the sum $X[0] + \cdots + X[i]$, for some $i$.
+
+\begin{lstlisting}[caption={BIT}, label={lst:bit}, numbers=left]
+#include <cstdio>
+#define N 10
+
 using namespace std;
 
-const int MAXN=1000005; int tree[MAXN],N;
-void update(int i, int v) {
-    while(i<=N) {
-        tree[i]+=v; 
-        i+=(i&-i);
-    }
-}
-int query(int i) {
-    int res = 0; 
-    while(i>0) {
-        res+=tree[i]; 
-        i-=(i&-i);
-    } 
-    return res;
-}
+int X[N] = {1,4,2,4,3,0,7,5,1,6}; 
+int T[N+1];
+
+void updateBIT(int, int);
+int queryBIT(int);
+void createBIT();
 
 int main()
 {
-    int n;
+    createBIT();
+    
+    //Print the accumulate sum from X[0] to X[6]
+    printf("%d\n", queryBIT(6));
+    
+    //Print the accumulate sum from X[0] to X[9]
+    printf("%d\n", queryBIT(9));
+    
+    //Add 2 to X[5] and print the sum from X[0] to X[9]
+    updateBIT(5,2);
+    printf("%d\n", queryBIT(9));
+    
     return 0;
 }
 
+void updateBIT(int i, int v) 
+{
+    i++;
+    
+    while(i<=N) 
+    {
+        T[i] += v; 
+        i += (i&-i);
+    }
+}
+
+int queryBIT(int i) 
+{
+    int res = 0; 
+    
+    i++;
+    
+    while(i>0) 
+    {
+        res += T[i]; 
+        i -= (i&-i);
+    } 
+    
+    return res;
+}
+
+void createBIT()
+{
+    int i;
+    
+    for(i=0; i<N; i++)
+        updateBIT(i, X[i]);
+}
 \end{lstlisting}
 
 
