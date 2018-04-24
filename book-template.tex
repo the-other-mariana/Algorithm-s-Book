@@ -9641,12 +9641,19 @@ int GCD(int a, int b)
 Be $m$ the greatest common divisor of $a$ and $b$, then we can rewrite the equation as follows
 
 \begin{align*}
-m \left ( \frac{a}{m} x +  \frac{b}{m}  y \right ) &= d \\
-\frac{a}{m} x +  \frac{b}{m} y  &= \frac{d}{m} \\
-a_2 x + b_2 y &= d_2  
+\left ( \frac{m}{d} \right ) \left ( ax + by \right ) &= d \left ( \frac{m}{d} \right ) \\
+\left ( \frac{m}{d} \right ) \left ( ax + by \right ) &= m \\
+ax^* + by^* = m\\
 \end{align*}
 
-The problem is now reduced to the \textit{Extended Euclidean} problem, and we can get the values of $x$ and $y$ that solve the new equation, multiply them by $m$ and we get the values of $x$ and $y$ that solve the original equation.
+where 
+
+\begin{align*}
+    x^* &= \frac{m}{d}x \\
+    y^* &= \frac{m}{d}y \\
+\end{align*}
+
+The problem is now reduced to the \textit{Extended Euclidean} problem, and we can get the values of $x^*$ and $y^*$ that solve the new equation, multiply them by $d/m$ and we get the values of $x$ and $y$ that solve the original equation.
 
 \item The \textit{Goldbach's Conjecture} \index{Goldbach's Conjecture} states that every even integer $n$ greater than 2 can be expressed as the sum of two prime numbers. The conjecture was written in 1742 in a letter to Euler, and to this day it has not been proved, making it one of the most famous problems in mathematics. \\
 
