@@ -1171,6 +1171,7 @@ void merge(int i, int m, int j)
 \end{lstlisting}
 
 \section{Heap Sort}
+\label{sec:heapSort}
 
 The \textit{Heap Sort} \index{heap sort} algorithm was invented by Joseph Williams in 1964. \cite{heapsort}. The main idea of this algorithm is to store the elements of a vector in a heap. A heap \index{heap} is a binary tree where the value of a node is greater or equal than the value of its children. If the value of a node is smaller than the value of one of its children, then the node is swapped with the children with greater value.\\
 
@@ -2202,13 +2203,63 @@ Trees are present in different areas, one of the main applications is in the fil
 
 \subsection{Tree Traversal}
 
+\subsection{Heap}
+
+A heap is binary tree where the value associated to node $k$ is larger or equal than the value associated to its children. Figure \ref{fig:validHeap} represents a valid heap with integer values. As we can notice, the greatest element is always in the root.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.6]{images/validHeap.png}
+	\caption[example of a valid heap]{example of a heap}
+	\label{fig:validHeap}
+\end{figure}
+
+One common situation is transform an array of numbers into a heap. For that we can use the same array to represent a heap, for element in position $k$, its left child will be located in position $2k$, and its right child in position $2k+1$.\\
+
+The method \texttt{downHeap} in \ref{lst:downHeap} was previously used in the \textit{Heap Sort} algorithm and has the purpose of placing in the correct position the $k^{th}$ element. The idea is to continue moving the initial element down trough the heap until its children are smaller or equal or until we reach a leaf node. In any other case the element is swapped with the largest of its two children. The method receives the array to be transformed into a heap, the number of elements in the heap, and the element to be plaed in the correct position.
+
+\begin{lstlisting}[caption={Place element in a heap}, label={lst:downHeap}, numbers=left]
+void downHeap(int *H, int n, int k)
+{
+    int maxChild, temp;
+    int leftChild = 2*k;
+    int rightChild = 2*k+1;
+    
+    while(leftChild <= n)
+    {
+        maxChild = leftChild;
+
+        if(rightChild <= n)
+        {
+            if(H[rightChild] > H[maxChild])
+                maxChild = rightChild;
+        }
+
+        if(H[k] < H[maxChild])
+        {
+            temp = H[k];
+            H[k] = H[maxChild];
+            H[maxChild] = temp;
+        }
+        else
+            break;
+
+        k = maxChild;
+        leftChild = 2*k;
+        rightChild = 2*k+1;
+    }
+}
+\end{lstlisting}
+
+To create a valid heap we just need to call the \texttt{downHeap} method for every node starting in element $n$ (the last leaf node) down to element $1$ (the root). See method \texttt{Make\_Heap} in \ref{sec:heapSort}. 
+
 \subsection{Binary Search Tree}
 
 \subsection{AVL Tree}
 
 \subsection{Segment Tree}
 
-\section{Binary Indexed Tree (BIT)}
+\subsection{Binary Indexed Tree (BIT)}
 
 \index{BIT} 
 Suppose we have an array composed by numbers $a_0,a_2,...,a_{n-1}$ and we want to know what is the sum from the index $i$ to index $j$, $0 \leq i \leq j < n$ . The naive approach is go through the interval and sum element by element. If this query is performed once the time cost is $O(n)$, but if we have $m$ queries of this type, the complexity time tends to $O(mn)$. This complexity can be reduced by saving the accumulate sums using another array to store the accumulate from the index $0$ to the index $i$, this might be done in linear time, then to resolve the query sum\{$a_i, a_j$\}, we just calculate the difference between the accumulate of the index $j$ and the accumulate of the index $i-1$. This last operation is made in constant time $O(1)$. So far everything seems good enough, but the last algorithm is considering an static array, in other words, the array is never modified, but what if we want to update the array and make queries at the same time. Here is when BIT shows up, BIT allows us to solve the problem of the sum of an interval when this is not static.\\
@@ -2583,6 +2634,163 @@ int main()
     printf("%s\n", X);
     
     return 0;
+}
+\end{lstlisting}
+
+\subsection{Find the median}
+
+Given an array $X$ of  $n$ integers, the median of $X$ is the middle element after all elements are sorted in increasing order, only if $n$ is odd, otherwise the median is obtained calculating the average of the two elements at the middle.\\
+
+For example, the median of elements $1,3,6,8,10$ is $6$. On the other hand, the median of elements $1,3,6,8,9,10$ is $7$ ($(6+8)/2$).\\
+
+Write a program that read and array $X$ of $n$ integers and print the median as elements are inserted into the array.
+
+\subsection*{Input}
+
+The input consists of a number $n$ $(1 \leq n \leq 10^5)$, indicating the amount of elements in the array. $n$ lines follow, each one with one integer, representing the elements in the array, $(0 \leq X_i \leq 10^5)$. 
+
+\subsection*{Output}
+
+$n$ numbers indicating the median as elements are inserted into the array. Each number must be in a separate line.
+
+\subsection*{Solution}
+
+To solve this problem we can use the fact that the elements at the left of the median are all smaller or equal than the median, and the elements at the right of the median are larger or equal then the median.\\
+
+If we use a heap to store the elements at the left, the root of that heap will be the largest of all those elements smaller or equal than the median. Equally for the right side, but using a min-heap instead (a node value is smaller or equal than its children values), so the root represents the smallest of all numbers equal or larger than the median.\\
+
+The idea is to maintain both heaps balanced. The amount of elements between them cannot differ by more than one. If both heaps have the same size, then the median is the average between the roots of the two heaps, if the left heap is larger, then the median is the root of the left heap, otherwise the median would be the root of the right heap.\\
+
+To implement the min-heap we can just multiply by $-1$ its elements and handle it as regular heap.
+
+\begin{lstlisting}[caption={Find the median}, label={lst:find_median}, numbers=left]
+#include <cstdio>
+#define N 100001
+
+using namespace std;
+
+int A[N], LH[N], UH[N];
+int n;
+
+void getMedians();
+void doHeap(int *, int, int);
+void downHeap(int *, int, int);
+
+int main() 
+{
+	scanf("%d", &n);
+	
+	for(int i=0; i<n; i++)
+	    scanf("%d", &A[i]);
+	    
+	getMedians();
+	
+	return 0;
+}
+
+void getMedians() 
+{
+    int n1, n2, k;
+    double median;
+    
+    //The first median is the first number of the array
+    printf("%.1lf\n", (double)A[0]);
+    
+    //Add the first number to the lower heap
+    LH[1] = A[0];
+    n1 = 1;
+    n2 = 0;
+    
+    for(int i=1; i<n; i++)    
+    {
+        //Is a[i] smaller or equal than the largest element of the lower heap?
+        if(A[i] <= LH[1])
+        {
+            //Add a[i] to the lower heap and place in the correct position
+            LH[++n1] = A[i];
+            doHeap(LH, n1, n1);
+        }
+        else
+        {
+            //Otherwise add a[i] to the upper heap and place in the correct position
+            UH[++n2] = -A[i];
+            doHeap(UH, n2, n2);
+        }
+        
+        //Do we have more elements in the lower heap? 
+        if(n1 - n2 >= 2)
+        {
+            //Remove the largest element of the lower heap
+            k = LH[1];
+            LH[1] = LH[n1--];
+            doHeap(LH,n1,1);
+            
+            //Add it to the upper heap
+            UH[++n2] = -k;
+            doHeap(UH,n2,n2);
+        }
+        else if(n2 - n1 >= 2) //We have more elements in the upper heap?
+        {
+            //Remove the smallest element of the upper heap
+            k = -UH[1];
+            UH[1] = UH[n2--];
+            doHeap(UH,n2,1);
+            
+            //Add it to the lower heap
+            LH[++n1] = k;
+            doHeap(LH,n1,n1);
+        }
+        
+        //Get the median
+        if(n1 == n2)
+            median = (LH[1] - UH[1])/2.0;
+        else if(n1 > n2)
+            median = (double)LH[1];
+        else
+            median = -1.0*UH[1];
+            
+        printf("%.1lf\n", median);
+    }
+}
+
+void doHeap(int *H, int n, int k)
+{    
+    while(k != 0)
+    {
+        downHeap(H, n, k);
+        k = k/2;
+    }
+}
+
+void downHeap(int *H, int n, int k)
+{
+    int maxChild, temp;
+    int leftChild = 2*k;
+    int rightChild = 2*k+1;
+    
+    while(leftChild <= n)
+    {
+        maxChild = leftChild;
+
+        if(rightChild <= n)
+        {
+            if(H[rightChild] > H[maxChild])
+                maxChild = rightChild;
+        }
+
+        if(H[k] < H[maxChild])
+        {
+            temp = H[k];
+            H[k] = H[maxChild];
+            H[maxChild] = temp;
+        }
+        else
+            break;
+
+        k = maxChild;
+        leftChild = 2*k;
+        rightChild = 2*k+1;
+    }
 }
 \end{lstlisting}
 
@@ -5809,6 +6017,7 @@ long BFS (long start, long target)
     while (!Q.empty())
     {
         u = Q.front();
+        Q.pop();
         
         color[u] = BLACK;
         
@@ -8767,6 +8976,143 @@ void addWord(Trie_Node currentNode, int pos)
     addWord(vNode[k], pos+1);
 }
 
+\end{lstlisting}
+
+\section{Manacher's Algorithm}
+
+Finding the longest palindrome inside a given string $S$ is a common problem in computer science. Perhaps the trivial solution is to fix the initial letter and the length of the word and check if it is a palindrome. That solution runs in $O(n^3)$. A better approach is to fix the center of a word and expand to both sides increasing a counter every time two letters match. That approach has a time complexity of $O(n^2)$.\\
+
+Manacher proposed in 1975 an algorithm to solve this problem in $O(n)$ time. The first step of this algorithm consist on transforming the string $S$ into a new string $T$ by adding a new char ('$\wedge$') at the beginning of $S$, and another char ('\$') at the end of $S$. These two characters are needed to identify the boundaries of the new string. Then we separate each pair of characters by some dummy char ('\#'). For example if we have the string:
+
+$$
+S = ABABABABA
+$$
+
+We would get
+
+$$
+T = \wedge\#A\#B\#A\#B\#A\#B\#A\#B\#A\#\$
+$$
+
+The function \texttt{preProcess} in code \ref{lst:manacher} converts a given string $S$ into a new string $T$ following the method described above.
+
+\begin{lstlisting}[caption={Manacher's Algorithm}, label={lst:manacher}, numbers=left]
+// Transform S into T.
+// For example, S = "abba", T = "^#a#b#b#a#$".
+// ^ and $ signs are sentinels appended to each end to avoid bounds checking
+void preProcess()
+{
+    if (n == 0)
+    {
+        T[0] = '^';
+        T[1] = '$';
+        return;
+    }
+    
+    T[0] = '^';
+    for (int i = 0; i < n; i++)
+    {
+        T[2*i+1] = '#';
+        T[2*i+2] = S[i];
+    }
+    
+    T[2*n+1] = '#';
+    T[2*n+2] = '$';
+}
+\end{lstlisting}
+
+To find the the longest palindrome inside $T$ we can use some properties of palindromes. For that consider a palindrome with its middle element in position $C$, and last element in position $R$.
+
+\begin{enumerate}
+    \item All elements at the left of $C$ are mirrored in the right side of $C$.
+    \item if a new palindrome is centered in position $i$, where $C < i \leq R$, the elements in positions $i$ and $2C-i$ are equal.
+    \item Be $P_k$ the length of the longest palindrome centered in position $k$. For a new palindrome centered in position $i$, where $C < i \leq R$ we can be  sure that the value of $P_i$ will be at least $P_{2C-i}$. So the value of $P_i$ is initialized as follows:
+    
+    $$
+    P_i = \min(R-i,P_{2C-i})
+    $$
+    
+    We need to compare with the value of $R-i$ in order to stay inside the boundaries of the palindrome. Once the value of $P_i$ is initialized we can expand to both sides of the string and increment the value of $P_i$ if two letters match.
+\end{enumerate}
+
+IfThe method \texttt{manacher} uses the string $T$ created in method \texttt{preProcess} and implements the Manacher's algorithm using the properties described above. The method returns the length of the longest palindrome.
+
+\begin{lstlisting}[numbers=left]
+int manacher()
+{
+    int C = 0, R = 0;
+    int maxLen = 0;
+    int centerIndex = 0;
+    
+    if(n == 0)
+        n = 2;
+    else
+        n = 2*n + 3;
+    
+    for (int i = 1; i < n-1; i++)
+    {
+        int i_mirror = 2*C-i; // equals to i' = C - (i-C)
+        
+        P[i] = (R > i) ? min(R-i, P[i_mirror]) : 0;
+        
+        // Attempt to expand palindrome centered at i
+        while (T[i + 1 + P[i]] == T[i - 1 - P[i]])
+            P[i]++;
+        
+        // If palindrome centered at i expand past R,
+        // adjust center based on expanded palindrome.
+        if (i + P[i] > R)
+        {
+            C = i;
+            R = i + P[i];
+        }
+        
+        if(P[i] > maxLen)
+        {
+            maxLen = P[i];
+            centerIndex = i;
+        }
+    }
+    
+    return maxLen;
+    //return s.substr((centerIndex - 1 - maxLen)/2, maxLen);
+}
+\end{lstlisting}
+
+To use the previous methods we need to define some global variables, consider that the length of $T$ and $P$ is $2n+3$, where $n$ is the length of the original string $S$. The following program reads a string $S$ and prints the length of the longest palindrome inside $S$.\\
+
+\noindent
+\textbf{Time Complexity:} $O(n)$ \\
+\indent \texttt{n}. Length of string $S$.\\
+\textbf{Input:}\\
+\indent A string $S$ containing only letters.\\
+\textbf{Output}:\\
+\indent The length of the longest palindrome inside $S$.
+
+\begin{lstlisting}[numbers=left]
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#define N 1000000
+
+using namespace std;
+
+int n;
+int P[2*N+10];
+char S[N+5], T[2*N+10];
+
+void preProcess();
+int manacher();
+
+int main()
+{
+    scanf("%s", S);
+    n = strlen(S);
+    preProcess();
+    printf("%d\n", manacher());
+    
+    return 0;
+}
 \end{lstlisting}
 
 \section{Chapter Notes}
